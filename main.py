@@ -1,8 +1,10 @@
 """Flask app."""
 
 from flask import Flask, request, redirect, make_response, render_template
+from flask_bootstrap import Bootstrap
 
 app = Flask(__name__)
+boostrap = Bootstrap(app)
 
 
 @app.errorhandler(404)
@@ -24,7 +26,7 @@ def index():
 def hello():
     """Show greeting."""
     user_ip = request.cookies.get('user_ip', None)
-    todos = ['Todo #1', 'Todo #2', 'Todo #3']
+    todos = ['Comprar cafe', 'Enviar solicitud de compra', 'Entregar video a productor ']
     context = {
         'user_ip': user_ip,
         'todos': todos
