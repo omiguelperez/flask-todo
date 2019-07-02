@@ -1,2 +1,2 @@
-# flask-intro-platzi
-Flask introduction project by Platzi
+# flask-intro
+Flask introduction project
