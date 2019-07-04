@@ -1,5 +1,6 @@
 autopep8==1.4.4
 blinker==1.4
+firebase-admin==2.17.0
 Flask==1.0.3
 Flask-Bootstrap4==4.0.2
 Flask-Testing==0.7.1
