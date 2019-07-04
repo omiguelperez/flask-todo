@@ -4,7 +4,6 @@ import unittest
 from flask import Flask, request, redirect, make_response, render_template, session, url_for, flash
 
 from app import create_app
-from app.forms import LoginForm
 
 app = create_app()
 
@@ -31,7 +30,7 @@ def index():
     return response
 
 
-@app.route('/hello', methods=['get', 'post'])
+@app.route('/hello', methods=['get'])
 def hello():
     """Show greeting."""
     user_ip = session.get('user_ip')
@@ -41,22 +40,12 @@ def hello():
         'Enviar solicitud de compra', 
         'Entregar video a productor '
     ]
-    login_form = LoginForm()
 
     context = {
         'user_ip': user_ip,
         'todos': todos,
-        'login_form': login_form,
         'username': username
     }
-
-    if login_form.validate_on_submit():
-        username = login_form.username.data
-        session['username'] = username
-
-        flash('User registered successfully!')
-
-        return redirect(url_for('index'))
 
     return render_template('hello.html', **context)
 
