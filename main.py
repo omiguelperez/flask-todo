@@ -2,27 +2,16 @@
 
 import unittest
 from flask import Flask, request, redirect, make_response, render_template, session, url_for, flash
-from flask_bootstrap import Bootstrap
-from flask_wtf import FlaskForm
-from wtforms.fields import StringField, PasswordField, SubmitField
-from wtforms.validators import DataRequired
 
-app = Flask(__name__)
-boostrap = Bootstrap(app)
+from app import create_app
+from app.forms import LoginForm
 
-app.config['SECRET_KEY'] = '<zlUxe@t6JO&[ngx@@}*dimYQ6&h,y'
-
-
-class LoginForm(FlaskForm):
-    """Login form."""
-
-    username = StringField('Username', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    submit = SubmitField('Send')
+app = create_app()
 
 
 @app.cli.command()
 def test():
+    """Run todo app tests."""
     tests = unittest.TestLoader().discover('tests')
     unittest.TextTestRunner().run(tests)
 
