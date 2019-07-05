@@ -3,5 +3,6 @@ blinker==1.4
 firebase-admin==2.17.0
 Flask==1.0.3
 Flask-Bootstrap4==4.0.2
+Flask-Login==0.4.1
 Flask-Testing==0.7.1
 Flask-WTF==0.14.2

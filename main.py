@@ -2,6 +2,7 @@
 
 import unittest
 from flask import Flask, request, redirect, make_response, render_template, session, url_for, flash
+from flask_login import login_required, current_user
 
 from app import create_app
 from app.firestore_service import get_users, get_todos
@@ -32,26 +33,17 @@ def index():
 
 
 @app.route('/hello', methods=['get'])
+@login_required
 def hello():
     """Show greeting."""
     user_ip = session.get('user_ip')
-    username = session.get('username')
-    todos = [
-        'Comprar cafe', 
-        'Enviar solicitud de compra', 
-        'Entregar video a productor '
-    ]
+    username = current_user.id
 
     context = {
         'user_ip': user_ip,
         'todos': get_todos(username),
         'username': username
     }
-
-    users = get_users()
-    for user in users:
-        print('user id', user.id)
-        print('user password', user.to_dict()['password'])
 
     return render_template('hello.html', **context)
 
