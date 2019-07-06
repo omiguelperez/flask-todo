@@ -29,3 +29,9 @@ def user_put(user_data):
 def get_todos(username):
     """Get todos filtered by username."""
     return db.collection('users').document(username).collection('todos').get()
+
+
+def put_todo(username, description):
+    """Create todo on database."""
+    todo_collection_ref = db.collection('users').document(username).collection('todos')
+    todo_collection_ref.add({'description': description})
