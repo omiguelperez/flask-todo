@@ -24,3 +24,9 @@ class DeleteTodoForm(FlaskForm):
     """Delete todo form."""
 
     submit = SubmitField('Remove')
+
+
+class UpdateTodoForm(FlaskForm):
+    """Update todo status form."""
+
+    submit = SubmitField('Update')

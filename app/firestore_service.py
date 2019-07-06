@@ -43,6 +43,13 @@ def delete_todo(username, todo_id):
     todo_ref.delete()
 
 
+def update_todo(username, todo_id, done):
+    """Update todo status."""
+    todo_done = not bool(done)
+    todo_ref = _get_todo_ref(username, todo_id)
+    todo_ref.update({'done': todo_done})
+
+
 def _get_todo_ref(username, todo_id):
     """Return todo reference."""
     return db.collection('users').document(username).collection('todos').document(todo_id)
