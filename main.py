@@ -5,8 +5,8 @@ from flask import Flask, request, redirect, make_response, render_template, sess
 from flask_login import login_required, current_user
 
 from app import create_app
-from app.firestore_service import get_users, get_todos, put_todo
-from app.forms import TodoForm
+from app.firestore_service import get_users, get_todos, put_todo, delete_todo
+from app.forms import TodoForm, DeleteTodoForm
 
 app = create_app()
 
@@ -41,12 +41,14 @@ def hello():
     username = current_user.id
 
     todo_form = TodoForm()
+    delete_form = DeleteTodoForm()
 
     context = {
         'user_ip': user_ip,
         'todos': get_todos(username),
         'username': username,
-        'todo_form': todo_form
+        'todo_form': todo_form,
+        'delete_form': delete_form,
     }
 
     if todo_form.validate_on_submit():
@@ -55,6 +57,14 @@ def hello():
         return redirect(url_for('hello'))
 
     return render_template('hello.html', **context)
+
+
+@app.route('/todos/delete/<todo_id>', methods=['POST'])
+@login_required
+def delete(todo_id):
+    """Handle request. Delete todo."""
+    delete_todo(username=current_user.id, todo_id=todo_id)
+    return redirect(url_for('hello'))
 
 
 if __name__ == '__main__':

@@ -34,4 +34,15 @@ def get_todos(username):
 def put_todo(username, description):
     """Create todo on database."""
     todo_collection_ref = db.collection('users').document(username).collection('todos')
-    todo_collection_ref.add({'description': description})
+    todo_collection_ref.add({'description': description, 'done': False})
+
+
+def delete_todo(username, todo_id):
+    """Remove todo from database."""
+    todo_ref = _get_todo_ref(username, todo_id)
+    todo_ref.delete()
+
+
+def _get_todo_ref(username, todo_id):
+    """Return todo reference."""
+    return db.collection('users').document(username).collection('todos').document(todo_id)

@@ -18,3 +18,9 @@ class TodoForm(FlaskForm):
 
     description = StringField('Description', validators=[DataRequired()])
     submit = SubmitField('Send')
+
+
+class DeleteTodoForm(FlaskForm):
+    """Delete todo form."""
+
+    submit = SubmitField('Remove')
